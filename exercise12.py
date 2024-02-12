@@ -10,10 +10,10 @@ print('QUESTION 1\n')
 # cheese += 'Oke'
 
 # Square brackets MUST be included to add the whole word as one item in the list
-cheese += ['Oke', 'Mozarella']
+cheese += ['Oke', 'Mozzarella']
 
 # Prints the new list with the additional two items
-print('Added two items to cheese list:\n',cheese, '\n', '-' * 100, '\nQUESTION 2\n')
+print('Added two items to cheese list:\n', cheese, '\n', '-' * 100, '\nQUESTION 2\n')
 
 # A string is assigned to the variable, tup
 tup = 'Hello'
@@ -26,7 +26,7 @@ tup = 'Hello',
 # How many items are in the tuple is returned by the length function and printed
 print(f'How many items are in the tuple: {len(tup)}')
 
-print('\n','-' * 100,'\nQUESTION 3 - Lottery\n')
+print('\n', '-' * 100, '\nQUESTION 3 - Lottery\n')
 
 # Stored an empty set to random_numbers variable
 random_numbers = set()
@@ -97,35 +97,34 @@ with open('lottery_history.txt', 'r') as file:
 
             # try statement defines this as a block of code where exceptions can occur
             try:
+
                 # win_number string is converted into an integer and assigned to history_integers variable
                 win_num_integer = int(win_number)
 
-                # if win_num_integer value is a key in the number_frequency dictionary, execute this code
-                if win_num_integer in number_frequency:
-
-                    # 1 is added to the value of the current key, win_num_integer, during this iteration
-                    number_frequency[win_num_integer] += 1
-
-                # if win_num_integer value is NOT a key in the number_frequency dictionary, execute this code
-                else:
-                    # A key is created, win_num_integer, with the value of 1
-                    # The new key-value pair is added using dictionary assignment
-                    number_frequency[win_num_integer] = 1
+                # get() method returns the value of a specific dictionary key, win_num_integer
+                # 0 is set as the default value to return if the key does not exist in the dictionary yet
+                # 1 is added to either an existing key's value or a new key with a value of 0
+                # The dictionary, number_frequency, will either be assigned an existing key's
+                # updated value or a new key-value pair
+                number_frequency[win_num_integer] = number_frequency.get(win_num_integer, 0) + 1
 
             # except statement catches the ValueError handle exception that may occur
             # ValueError is raised when an argument is received with the correct type, but invalid value
             except ValueError:
 
                 # Prints a string informing the user that the value in win_number is not an integer
+                # This error happens when trying to convert a string to an integer, but the string is not a number
+                # Since the randint() method is used, it is an unlikely error, unless the input() function is used
                 print(f'Error: {win_number} is not an integer.')
 
-# items method returns a key-value pair, winning number and frequency number, from the number_frequency dictionary
+# items method returns key-value pairs as tuples, win number and freq number, from the number_frequency dictionary
+# items method always returns a sequence of tuples from a dictionary
 # key= specifies a function that determines the sorting criteria for the items of an iterable, an optional parameter
 # lambda defines a small, one-line function without giving it a name, an anonymous function
-# win_freq: represents each key-value pair
-# win_freq[1] specifies the value to use for sorting, the second item of each pair, frequency number
+# win_freq: represents each key-value pair as a tuple
+# win_freq[1] specifies the value to use for sorting, the second value of each pair, frequency number
 # reverse= is a parameter of the sorted function. 'True' sorts the list in descending order
-# sorted function returned and stored tuples into a sorted list, assigned to sorted_items variables
+# sorted function returns and stores tuples into a sorted list, assigned to sorted_items variable
 sorted_items = sorted(number_frequency.items(), key=lambda win_freq: win_freq[1], reverse=True)
 
 print('lottery history'.upper())
